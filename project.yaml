@@ -32,6 +32,7 @@ spec:
       requests:
         cpu: 250m
         memory: 256Mi
+    mountsatoken: true
   ha:
     resources:
       limits:
@@ -57,6 +58,11 @@ spec:
       requests:
         cpu: 250m
         memory: 1024Mi
+  rbac:
+    defaultPolicy: role:admin
+    policy: |
+      p, role:admin, applications, *, */*, allow
+      g, admin, role:admin
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -76,3 +82,31 @@ spec:
     automated:
       prune: true
       selfHeal: true
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: argocd-argocd-server-admin 
+  namespace: test-keycloak
+subjects:
+  - kind: ServiceAccount
+    name: argocd-argocd-server
+    namespace: test-keycloak
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: argocd-argocd-application-controller-admin
+  namespace: test-keycloak
+subjects:
+  - kind: ServiceAccount
+    name: argocd-argocd-application-controller
+    namespace: test-keycloak
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
