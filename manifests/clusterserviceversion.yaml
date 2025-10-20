@@ -1,9 +1,0 @@
----
-apiVersion: operators.coreos.com/v1alpha1
-kind: ClusterServiceVersion
-metadata:
-name: rhbk-operator.v26.2.9-opr.1
-namespace: test-keycloak
-annotations:
- "helm.sh/hook": "post-delete"
- "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
