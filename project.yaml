@@ -7,3 +7,72 @@ metadata:
 spec:
   finalizers:
     - kubernetes
+---
+apiVersion: argoproj.io/v1beta1
+kind: ArgoCD
+metadata:
+  name: argocd
+  namespace: test-keycloak
+spec:
+  server: 
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 125m
+        memory: 128Mi
+    route:
+      enabled: true
+  repo:
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+  ha:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+    enabled: false
+  redis:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+  controller:
+    resources:
+      limits:
+        cpu: 2000m
+        memory: 2048Mi
+      requests:
+        cpu: 250m
+        memory: 1024Mi
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: testoperator
+  namespace: test-keycloak
+spec:
+  source:
+    repoURL: 'https://github.com/Pytargopias/testOpenshift.git'
+    targetRevision: HEAD
+    path: manifests
+  project: default
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: test-keycloak
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

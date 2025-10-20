@@ -32,10 +32,10 @@ spec:
 apiVersion: argoproj.io/v1beta1
 kind: ArgoCD
 metadata:
-  name: argocd-sample
-  namespace: argocd
+  name: argocd
+  namespace: test-keycloak
 spec:
-  server:
+  server: 
     resources:
       limits:
         cpu: 500m
@@ -78,12 +78,3 @@ spec:
       requests:
         cpu: 250m
         memory: 1024Mi
----
-kind: Secret
-apiVersion: v1
-metadata:
-  name: argocd-sample-initial-admin-secret
-  namespace: argocd
-data:
-  password: J1Bhc3N3b3JkJw==
-type: Opaque
