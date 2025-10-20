@@ -5,3 +5,5 @@ metadata:
   namespace: test-keycloak
 spec:
   upgradeStrategy: Default
+  targetNamespaces:
+    - test-keycloak
