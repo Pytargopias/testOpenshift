@@ -3,5 +3,7 @@ kind: OperatorGroup
 metadata:
   name: test-keycloak-operator-group
   namespace: test-keycloak
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   upgradeStrategy: Default

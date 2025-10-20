@@ -8,6 +8,7 @@ spec:
     repoURL: 'https://github.com/Pytargopias/testOpenshift.git'
     targetRevision: HEAD
     path: manifests
+  project: default
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: test
