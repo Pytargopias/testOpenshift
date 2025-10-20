@@ -1,9 +1,9 @@
-# apiVersion: operators.coreos.com/v1
-# kind: OperatorGroup
-# metadata:
-#   name: test-keycloak-operator-group
-#   namespace: test-keycloak
-# spec:
-#   upgradeStrategy: Default
-#   targetNamespaces:
-#     - test-keycloak
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: test-keycloak-operator-group
+  namespace: test-keycloak
+spec:
+  upgradeStrategy: Default
+  targetNamespaces:
+    - test-keycloak
