@@ -3,8 +3,6 @@ kind: Subscription
 metadata:
   name: rhbk-operator
   namespace: test-keyclaok
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
 spec:
   channel: stable-v26.2
   installPlanApproval: Automatic
