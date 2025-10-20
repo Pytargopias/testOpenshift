@@ -1,0 +1,89 @@
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: argocd
+spec:
+  finalizers:
+    - kubernetes
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: argocd-operator-group
+  namespace: argocd
+spec:
+  upgradeStrategy: Default
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    operators.coreos.com/argocd-operator.argocd: ''
+  name: argocd-operator
+  namespace: argocd
+spec:
+  channel: alpha
+  installPlanApproval: Automatic
+  name: argocd-operator
+  source: community-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: argocd-operator.v0.15.0
+---
+apiVersion: argoproj.io/v1beta1
+kind: ArgoCD
+metadata:
+  name: argocd-sample
+  namespace: argocd
+spec:
+  server:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 125m
+        memory: 128Mi
+    route:
+      enabled: true
+  repo:
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+  ha:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+    enabled: false
+  redis:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+  controller:
+    resources:
+      limits:
+        cpu: 2000m
+        memory: 2048Mi
+      requests:
+        cpu: 250m
+        memory: 1024Mi
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: argocd-sample-initial-admin-secret
+  namespace: argocd
+data:
+  password: J1Bhc3N3b3JkJw==
+type: Opaque

@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: testoperator
+  namespace: argocd
+spec:
+  source:
+    repoURL: 'https://github.com/Pytargopias/testOpenshift.git'
+    targetRevision: HEAD
+    path: manifests
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: test
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
