@@ -11,7 +11,7 @@ spec:
   project: default
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: test
+    namespace: test-keyclaok
   syncPolicy:
     automated:
       prune: true
