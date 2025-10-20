@@ -2,13 +2,15 @@
 apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
-name: rhbk-operator.v26.2.9-opr.1
-namespace: test-keycloak
-metadata:
+  name: rhbk-operator.v26.2.9-opr.1
+  namespace: test-keycloak
   ownerReferences:
     - apiVersion: operators.coreos.com/v1alpha1
       kind: Subscription
       name: rhbk-operator
-      uid: REPLACE_WITH_SUBSCRIPTION_UID
+      uid: 8c6771d8-ad2f-404a-bfb3-905267c35e5c
       controller: true
       blockOwnerDeletion: true
+spec:
+  cleanup:
+    enabled: false
